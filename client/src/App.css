@@ -1,0 +1,171 @@
+body{
+  color: #333;
+}
+img{
+  max-width: 100%;
+}
+main{
+  padding: 10px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+header .logo{
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+header nav{
+  display: flex;
+  gap: 15px;
+}
+
+div.post{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+@media screen and (min-width: 700px) {
+  div.post{
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+}
+
+div.post div.texts h2{
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+div.post p.info{
+  margin: 6px 0;
+  color: #888;
+  font-size: 0.7rem;
+  font-weight: bold;
+  display: flex;
+  gap: 10px;
+  
+}
+
+div.post p.info a{
+  color: #333;
+}
+
+div.post p.summary{
+  margin: 10px 0;
+  line-height: 1.4rem;
+  font-size: .9rem;
+}
+
+form.login, form.register{
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+form.login .input, form.register .input{
+  display: block;
+  margin-bottom: 5px;
+  width: 100%;
+  background-color: #eee;
+}
+
+form.login .btn, form.register .btn{
+  margin-top: 10px;
+  width: 100%;
+  background-color: #333;
+  color: #eee;
+}
+
+
+
+form.login .title, form.register .title, form.add-post .title{
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+form.login .tag, form.register .tag, form.add-post .tag{
+  font-size: 10px;
+  margin-bottom: 10px;
+}
+
+form.add-post Input{
+  margin-bottom: 10px;
+}
+
+form.add-post Button{
+  margin-top: 10px;
+  width: 100%;
+  background-color: #333;
+  color: #eee;
+}
+
+div.post-page div.header-section{
+  margin-bottom: 3rem;
+}
+
+div.post-page div.header-section .image{
+  margin-right: 2rem;
+}
+
+div.post-page div.header-section .comment-section{
+  max-width: 350px;
+}
+div.post-page div.header-section .comment-section span{
+ font-size: medium;
+ font-weight: bold;
+ margin-bottom: 1rem;
+}
+
+div.post-page div.header-section .add-comment{
+ display: flex;
+ justify-content: flex-end;
+ margin-top: 1rem;
+}
+
+div.post-page div.header-section .add-comment Button{
+  background-color: #333;
+}
+
+div.post-page div.content div.summary{
+  font-size: small;
+  margin-bottom: 1rem;
+  color: #555353;
+}
+
+div.post-page div.content h1{
+  margin-bottom: 0;
+}
+
+div.post-page div.content div.date{
+  margin-bottom: 1rem;
+  font-size: small;
+  font-weight: bold;
+}
+
+div.post-page div.content div.edit-btn{
+  display: flex;
+  justify-content: flex-end;
+}
+
+div.post-page div.content div.edit-btn Button{
+  margin: 1rem;
+  background-color: #333;
+  color: #eee;
+}
+
+
