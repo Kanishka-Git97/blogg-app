@@ -6,7 +6,7 @@ import { SendOutlined, EditOutlined } from '@ant-design/icons';
 import ReactTimeAgo from 'react-time-ago'
 import { UserContext } from '../context/UserContext';
 import {Link} from 'react-router-dom'
-
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function PostPage() {
     const {id} = useParams();
     const [post, setPost]= useState(null);
@@ -23,7 +23,7 @@ function PostPage() {
 
     // Handle Comment Submitted
     async function handleCommentSubmitted(){
-       const response =  await fetch('http://localhost:4040/api/comment/add', {
+       const response =  await fetch(`${SERVER_URL}/api/comment/add`, {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -38,13 +38,13 @@ function PostPage() {
     }
 
     async function handleCommentFetch(){
-        await fetch(`http://localhost:4040/api/comments/${id}`).then(response => response.json()).then(comments=>{
+        await fetch(`${SERVER_URL}/api/comments/${id}`).then(response => response.json()).then(comments=>{
             setComments(comments);
         })
     }
 
     useEffect(()=>{
-        fetch(`http://localhost:4040/api/post/${id}`).then(response => response.json()).then(post=>{
+        fetch(`${SERVER_URL}/api/post/${id}`).then(response => response.json()).then(post=>{
             setPost(post);
         })
         handleCommentFetch();
@@ -57,7 +57,7 @@ function PostPage() {
         <div className='header-section'>
            <Row>
             <Col span={10} className='image'>
-                <Image src={`http://localhost:4040/${post.file}`} style={{ borderRadius: '10px' }}/>
+                <Image src={`${SERVER_URL}/${post.file}`} style={{ borderRadius: '10px' }}/>
             </Col>
             <Col span={14} className='comment-section'>
                 <span>Comments</span>

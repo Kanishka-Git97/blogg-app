@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import {Input, Button, notification} from 'antd'
 import {Navigate} from 'react-router-dom'
 import { UserContext } from '../context/UserContext';
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ function Login() {
 
   async function handleLogin(e){
     e.preventDefault();
-    const response = await fetch('http://localhost:4040/api/login',{
+    const response = await fetch(`${SERVER_URL}/api/login`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

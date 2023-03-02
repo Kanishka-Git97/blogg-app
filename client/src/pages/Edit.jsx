@@ -4,6 +4,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import ReactQuill from 'react-quill'
 import { Button, Input, Upload, Modal } from 'antd'
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 const modules = {
     toolbar:[
       [{'header': [1, 2, false]}],
@@ -39,7 +41,7 @@ function Edit() {
         // data.set('summary', summary);
         // data.set('post', post);
      
-        const response = await fetch('http://localhost:4040/api/update',{
+        const response = await fetch(`${SERVER_URL}/api/update`,{
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify({id: id, title: title, summary: summary, post: post}),
@@ -52,7 +54,7 @@ function Edit() {
     
 
     useEffect(()=>{
-        fetch(`http://localhost:4040/api/post/${id}`).then(response => response.json()).then(post=>{
+        fetch(`${SERVER_URL}/api/post/${id}`).then(response => response.json()).then(post=>{
             setTitle(post.title);
             setSummary(post.summary);
             setPost(post.post);

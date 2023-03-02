@@ -3,12 +3,15 @@ import React, {useContext, useEffect, useState} from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import { UserContext } from '../context/UserContext';
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 function Header() {
   // State 
   const {setUser, user} = useContext(UserContext);
 
   async function validate(){
-    await fetch('http://localhost:4040/api/profile',{
+    await fetch(`${SERVER_URL}/api/profile`,{
       credentials: 'include'
     }).then(response=>response.json()).then(user=>{
       setUser(user)
@@ -23,12 +26,14 @@ function Header() {
   // Handle Logout
   function handleLogout(e) {
     e.preventDefault();
-    fetch('http://localhost:4040/api/logout',{
+    fetch(`${SERVER_URL}/api/logout`,{
       method: 'POST',
       credentials: 'include'
     }).then(response=>{
       setUser(null);
-      window.location.replace('http://localhost:3000');
+      console.log(SERVER_URL)
+      // const url = 
+      window.location.replace(`${BASE_URL}/`);
     });
     
   }

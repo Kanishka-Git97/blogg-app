@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom'
 import ReactTimeAgo from 'react-time-ago'
 import { CommentOutlined, LikeOutlined } from  '@ant-design/icons';
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+
 function Post({_id,title, summary, file, createdAt, author}) {
   const [comments, setComments] = useState([]);
   // handle comments
   async function handleCommentFetch(){
-    await fetch(`http://localhost:4040/api/comments/${_id}`).then(response => response.json()).then(comments=>{
+    await fetch(`${SERVER_URL}/api/comments/${_id}`).then(response => response.json()).then(comments=>{
         setComments(comments);
     })
   }
@@ -20,7 +23,7 @@ function Post({_id,title, summary, file, createdAt, author}) {
     <div className="post" style={{  padding: '10px', borderRadius: '10px' }}>
         <div className="image">
           <Link to={`/post/${_id}`}>
-            <img src={`http://localhost:4040/${file}`} alt="" style={{ borderRadius: '10px' }}/>
+            <img src={`${SERVER_URL}/${file}`} alt="" style={{ borderRadius: '10px' }}/>
           </Link>
         </div>
         <div className="texts">

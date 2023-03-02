@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {Input, Button, notification} from 'antd'
-
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const Register = () => {
   const [name, setName] = useState(''); 
   const [email, setEmail] = useState('');
@@ -13,7 +13,7 @@ const Register = () => {
       return openNotification('Invalid Input', 'Password does not matched, Please enter a valid password');
     }
     
-    const response = await fetch('http://localhost:4040/api/register',{
+    const response = await fetch(`${SERVER_URL}/api/register`,{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

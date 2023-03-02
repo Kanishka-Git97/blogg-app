@@ -10,11 +10,14 @@ const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
 const fs = require('fs');
 const Comment = require('./models/Comment');
+require('dotenv').config({path: __dirname+'/.env'});
 
 const app = express();
-
+const MONGO_DB = process.env.MONGO_DB_LINK;
+const FRONT_END = process.env.FRONT_END_URL;
+const port = process.env.PORT || 4040;
 // Middleware Configuration
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true, origin: FRONT_END}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
@@ -24,7 +27,7 @@ const salt = bcrypt.genSaltSync(10);
 const secret = 'jLIOgsuYd0Bdmy10dZmN1SravfeSHlRa';
 
 // Database Connection
-mongoose.connect('mongodb+srv://bloggy:PbcxYsVveCfQ0yuM@cluster0.qcmhuuh.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect(MONGO_DB);
 
 // Testing Server 
 app.get('/api/test',(req, res)=>{
@@ -162,8 +165,8 @@ app.get('/api/comments/:id', async(req, res)=>{
     )
 })
 
-app.listen(4040);
-console.info('Server Start on: http://localhost:4040/api');
+app.listen(port);
+console.info(`Server Start on: ${port}`);
 
 
 // bloggy

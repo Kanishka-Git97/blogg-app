@@ -3,6 +3,7 @@ import Post from '../components/Post'
 import {Empty, Button, Space, Spin} from 'antd'
 import { Link } from 'react-router-dom';
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Home() {
   // States 
@@ -11,7 +12,7 @@ function Home() {
   useEffect(()=>{
     
     setTimeout(()=>{
-      fetch('http://localhost:4040/api/posts').then(response=>response.json()).then(posts=>{
+      fetch(`${SERVER_URL}/api/posts`).then(response=>response.json()).then(posts=>{
           setPosts(posts);
           setLoading(false);
       })      

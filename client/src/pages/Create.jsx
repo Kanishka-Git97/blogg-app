@@ -6,6 +6,9 @@ import { PlusOutlined } from '@ant-design/icons';
 import {Navigate} from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+
 const modules = {
   toolbar:[
     [{'header': [1, 2, false]}],
@@ -76,7 +79,7 @@ function Create() {
     data.set('file', fileList[0].originFileObj);
 
     console.log(fileList);
-    const response = await fetch('http://localhost:4040/api/create',{
+    const response = await fetch(`${SERVER_URL}/api/create`,{
       method: 'POST',
       body:data,
       credentials: 'include'
