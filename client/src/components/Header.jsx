@@ -21,6 +21,7 @@ function Header() {
 
   useEffect(()=>{
      validate();
+     console.log(user);
   },[])
 
   // Handle Logout
@@ -43,7 +44,11 @@ function Header() {
   // Profile Content 
   const content = (
     <div>
-      <Link>Account Setting</Link><br />
+      {
+        user && (
+          <><Link to={`/account/${user.id}`}>Profile Information</Link><br /></>
+        )
+      }
       <a onClick={handleLogout} style={{ color: 'redAccent' }}>Logout</a>
     </div>
   );
@@ -55,7 +60,7 @@ function Header() {
           {user && (
            <>
             <Link to='/create'>Create new blog</Link>
-            <Link>My Blogs</Link>      
+            <Link to={`/posts/${user.id}`}>My Blogs</Link>      
              <Popover content={content} title={user.name} trigger='click' >
                <Avatar style={{ cursor: 'pointer' }}>{user.name.charAt(0)}</Avatar>
              </Popover>

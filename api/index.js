@@ -7,15 +7,32 @@ const cookieParser = require('cookie-parser');
 const User = require('./models/User');
 const Post = require('./models/Post');
 const multer = require('multer');
-const upload = multer({dest: 'uploads/'});
+const upload = multer({storage: multer.memoryStorage()});
 const fs = require('fs');
 const Comment = require('./models/Comment');
 require('dotenv').config({path: __dirname+'/.env'});
 
+// Component of Firebase 
+// import {initializeApp} from 'firebase/app'
+const firebaseApp = require('firebase/app');
+const firebaseStorage = require('firebase/storage');
+const config = require('./configuration/firebase.config')
+// import {getStorage, ref, getDownloadURL, uploadBytesResumable} from 'firebase/storage'
+// import config from '/configuration/firebase.config'
+
+
+// Configuration for Firebase Cloud Storage
+firebaseApp.initializeApp(config);
+const storage = firebaseStorage.getStorage();
+
+
+// End of configuration of Cloud Storage
+
 const app = express();
 const MONGO_DB = process.env.MONGO_DB_LINK;
 const FRONT_END = process.env.FRONT_END_URL;
-const port = process.env.PORT || 4040;
+// const port = process.env.PORT || 4040;
+const port = 4040;
 // Middleware Configuration
 app.use(cors({credentials: true, origin: FRONT_END}));
 app.use(express.json());
@@ -87,8 +104,17 @@ app.post('/api/create', upload.single('file'), async (req, res)=>{
     const {originalname, path} = req.file;
     const parts = originalname.split('.');
     const ext = parts[parts.length - 1];
-    const filePath = path+'.'+ext;
-    fs.renameSync(path, filePath);
+    const filePath = req.originalname;
+    // fs.renameSync(path, filePath);
+
+    const metadata = {
+        contentType: req.file.mimetype,
+    }
+    // console.log(req.file);
+    // Upload the file for the cloud Bucket
+    const storageRef = firebaseStorage.ref(storage, `uploads/${filePath}`);
+    const snapshot = await firebaseStorage.uploadBytesResumable(storageRef, req.file.buffer, metadata);
+    const downloadURL = await firebaseStorage.getDownloadURL(snapshot.ref);
     
     // Get Author
     const {token} = req.cookies;
@@ -99,7 +125,7 @@ app.post('/api/create', upload.single('file'), async (req, res)=>{
             title,
             summary,
             post,
-            file: filePath,
+            file: downloadURL,
             author:info.id
         })
         res.json(postDocument);
@@ -122,6 +148,18 @@ app.put('/api/update', async (req, res)=>{
         await postDoc.updateOne({title, summary, post});
         res.json("ok");
     });
+})
+
+// Update Profile
+app.put('/api/profile/update', async (req, res)=>{
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, async (err, info)=>{
+        if(err) throw err;
+        const {name, email} = req.body;
+        const profileDoc = await User.findById(info.id);
+        await profileDoc.updateOne({name, email});
+        res.json("ok");
+    })
 })
 
 // Get Posts 
@@ -163,6 +201,15 @@ app.get('/api/comments/:id', async(req, res)=>{
         .populate('user',['name', 'email'])
         .sort({createdAt: -1})
     )
+})
+
+// My blogs 
+app.get('/api/my/:id', async(req, res)=>{
+    const {id} = req.params;
+    res.json(await Post.find({author: id})
+    .populate('author', ['name', 'email', 'id'])
+    )
+    
 })
 
 app.listen(port);

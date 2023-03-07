@@ -23,7 +23,7 @@ function Post({_id,title, summary, file, createdAt, author}) {
     <div className="post" style={{  padding: '10px', borderRadius: '10px' }}>
         <div className="image">
           <Link to={`/post/${_id}`}>
-            <img src={`${SERVER_URL}/${file}`} alt="" style={{ borderRadius: '10px' }}/>
+            <img src={file} alt="" style={{ borderRadius: '10px' }}/>
           </Link>
         </div>
         <div className="texts">

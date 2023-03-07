@@ -1,4 +1,4 @@
-import { Button, Input, Upload, Modal, Form, Switch } from 'antd'
+import { Button, Input, Upload, Modal, Form, Switch, Spin } from 'antd'
 import React, { useContext, useState } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -40,7 +40,7 @@ function Create() {
   const [summary, setSummary] = useState('');
   const [post, setPost] = useState('');
   const [redirect, setRedirect] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -72,6 +72,7 @@ function Create() {
 
   async function handleCreatePost(e){
     e.preventDefault();
+    setLoading(true);
     const data = new FormData();
     data.set('title', title);
     data.set('summary', summary);
@@ -86,6 +87,7 @@ function Create() {
     })
     if(response.ok){
       setRedirect(true);
+      setLoading(false);
     }
   }
 
@@ -95,6 +97,11 @@ function Create() {
 
   return (
     <form className='add-post'>
+      {
+        loading && (
+          <center><Spin /></center>
+        )
+      }
        <div className='title'>Create Post</div>
         <div className='tag'>Complete your Blog Post details, to engage with your audience</div>
         <div style={{ paddingTop: '10px' }}>

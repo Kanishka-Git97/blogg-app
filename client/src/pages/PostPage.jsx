@@ -57,7 +57,7 @@ function PostPage() {
         <div className='header-section'>
            <Row>
             <Col span={10} className='image'>
-                <Image src={`${SERVER_URL}/${post.file}`} style={{ borderRadius: '10px' }}/>
+                <Image src={post.file} style={{ borderRadius: '10px' }}/>
             </Col>
             <Col span={14} className='comment-section'>
                 <span>Comments</span>

@@ -167,5 +167,34 @@ div.post-page div.content div.edit-btn Button{
   background-color: #333;
   color: #eee;
 }
+div.account-section div.header-section{
+  margin-top: 10px;
+}
 
+div.account-section div.header-section h1{
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+div.account-section div.header-section span{
+  font-size: 14px;
+  margin-top: 0;
+}
+div.account-section div.form-content{
+  max-width: 460px;
+  margin-top: 20px;
+}
 
+div.account-section div.form-content Input{
+  margin-top: 10px;
+}
+
+div.account-section div.form-content Button{
+  margin-top: 1rem;
+  background-color: #333;
+  color: #eee;
+}
+
+div.account-section Statistic{
+  color: #555353;
+}

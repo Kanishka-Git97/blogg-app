@@ -9,6 +9,9 @@ import { UserContextProvider } from './context/UserContext';
 import Create from './pages/Create';
 import PostPage from './pages/PostPage';
 import Edit from './pages/Edit';
+import MyBlogs from './pages/MyBlogs';
+import Account from './pages/Account';
+
 
 
 
@@ -23,6 +26,8 @@ function App() {
           <Route path='/create' element={<Create/>}/>
           <Route path='/post/:id' element={<PostPage/>}/>
           <Route path='/edit/:id' element={<Edit/>}/>
+          <Route path='/posts/:id' element={<MyBlogs/>}/>
+          <Route path='/account/:id' element={<Account/>}/>
         </Route> 
       </Routes>
     </UserContextProvider>
